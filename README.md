@@ -26,7 +26,7 @@ subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhe
     $ pip install -U pip
     $ pip install tox
 ```
-**If you working with this repository skip to the Work with this repository section.**
+**If you working with this repository(not making the chnges yourself) skip to the Work with this repository section.**
 
 * Clone kolla-openstack queens release repository:
 ```
@@ -65,8 +65,8 @@ systemctl start docker
 ```
 
 ### DockerFiles fix
-We've included some changes in several docker files, each and everyone of the changes is written in the directory 'changes'([Go to changes here](changes)
-), here is an example in the neutron-server Dockerfile:
+We've included some changes in several docker files, each and everyone of the changes is written in the directory 'changes'([Go to changes here](changes)), Most of the changes are yum packages that do not exist for rhel, so you need to create a sperated if condition for rhel and put there only the packages that are exists. 
+All the changes are documented in the changes directory and in the commit. Here is an example for neutron-server Dockerfile:
 
 * **docker/neutron/neutron-server/Dockerfile.j2**
 
@@ -100,7 +100,8 @@ The DockerFiles we chnaged:
 - neutron-server
 - openstack-base
 
-## Work with this repository 
+## Work with this repository
+If you decide to work with this repository and not make the changes yourself. Do this steps:
 * Clone this repository:
 ```
 git clone https://github.com/seanso/rhel-kolla-openstack.git
