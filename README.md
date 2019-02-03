@@ -3,7 +3,7 @@
 
 ## Getting Started 
 
-Before you run this build you should start with the following steps.  
+### Before you run this build you should start with the following steps.  
 
 * Make sure your machine have enough storage, at least 20Gb in /var (depends on how much containers you create) and 4Gb in /usr.
 
@@ -32,6 +32,23 @@ subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhe
 ```
 git clone https://github.com/openstack/kolla.git --branch stable/queens
 ```
+* Genrate config file
+```
+cd prod-kolla/
+tox -e genconfig
+```
+
+* Install pip requirements
+```
+pip install -r requirements.txt
+```
+
+* Install and start Docker
+```
+yum install docker 
+systemctl start docker
+```
+
 ## Change the files
 
 ### Fix Bugs
@@ -48,7 +65,8 @@ git clone https://github.com/openstack/kolla.git --branch stable/queens
 ```
 
 ### DockerFiles fix
-We've included some changes in several docker files, each and everyone of the changes is written in the directory 'changes', here is an example in the neutron-server Dockerfile:
+We've included some changes in several docker files, each and everyone of the changes is written in the directory 'changes'([Go to changes here](changes)
+), here is an example in the neutron-server Dockerfile:
 
 * **docker/neutron/neutron-server/Dockerfile.j2**
 
@@ -56,8 +74,7 @@ Again had to seperate rhel from oraclelinux and centos because some packages hav
 
 ```diff --git a/docker/neutron/neutron-server/Dockerfile.j2 b/docker/neutron/neutron-server/Dockerfile.j2
 index 9694778..302b431 100644
---- a/docker/neutron/neutron-server/Dockerfile.j2
-+++ b/docker/neutron/neutron-server/Dockerfile.j2
+a/docker/neutron/neutron-server/Dockerfile.j2
 @@ -6,7 +6,13 @@ LABEL maintainer="{{ maintainer }}" name="{{ image_name }}" build-date="{{ build
  {% import "macros.j2" as macros with context %}
  
@@ -74,4 +91,40 @@ index 9694778..302b431 100644
          {% set neutron_server_packages = [
              'openstack-neutron-lbaas',
 ```
+
+The DockerFiles we chnaged:
+- horizen
+- kolla-toolbok
+- neutron-base
+- neutron-l3-agent
+- neutron-server
+- openstack-base
+
+## Work with this repository 
+* Clone this repository:
+```
+git clone https://github.com/seanso/rhel-kolla-openstack.git
+```
+* Genrate config file
+```
+cd prod-kolla/
+tox -e genconfig
+```
+
+* Install pip requirements
+```
+pip install -r requirements.txt
+```
+
+* Install and start Docker
+```
+yum install docker 
+systemctl start docker
+```
+
+## Run the build command
+```
+python kolla/cmd/build.py nova glance horizon keystone neutron cinder heat barbican octavia keepalived kolla-toolbox haproxy cron chrony mariadb memcached rabbitmq openvswitch openvswitch-db-server openvswitch-vswitchd --base-arch x86_64 --base-image registry.access.redhat.com/rhel7 --base-tag 7.6 --type binary --tag 6.1.1 --threads 16  --base rhel
+```
+**In this build 2 images(neutron-bgp-dragent, nova-mksproxy) will fail because there are missing packages for RHEL.**
 
