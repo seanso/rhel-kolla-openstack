@@ -26,15 +26,16 @@ subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhe
     $ pip install -U pip
     $ pip install tox
 ```
-!!! If you working with this repository skip to the Work with this repository section.
+**If you working with this repository skip to the Work with this repository section.**
 
-* Clone koll-openstack queens release repository:
+* Clone kolla-openstack queens release repository:
 ```
 git clone https://github.com/openstack/kolla.git --branch stable/queens
 ```
 ## Change the files
 
-### bug fix /root/kolla/kolla/image/build.py
+### Fix Bugs
+* **Bug fix /root/kolla/kolla/image/build.py**
 ``` diff
                 image.status = STATUS_MATCHED
 
@@ -46,10 +47,10 @@ git clone https://github.com/openstack/kolla.git --branch stable/queens
                     image.status = STATUS_UNMATCHED
 ```
 
-### Change the DockerFiles
+### DockerFiles fix
 We've included some changes in several docker files, each and everyone of the changes is written in the directory 'changes', here is an example in the neutron-server Dockerfile:
 
-### docker/neutron/neutron-server/Dockerfile.j2
+* **docker/neutron/neutron-server/Dockerfile.j2**
 
 Again had to seperate rhel from oraclelinux and centos because some packages have diffrante names or does not exists
 
