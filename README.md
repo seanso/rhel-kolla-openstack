@@ -1,7 +1,7 @@
 
 # Openstack-Kolla-for-RHEL
 
-### Getting Started 
+## Getting Started 
 
 Before you run this build you should start with the following steps.  
 
@@ -10,20 +10,17 @@ Before you run this build you should start with the following steps.
 * Attach the right pool (you can use any pool that contains all of the repos from the next command) 
 
 ```
-
-      subscription-manager attach --pool=8a85f98a61b259620161debd54665adb
-
-
-* Enable the repositorys on your machine:  
+     subscription-manager attach --pool=8a85f98a61b259620161debd54665adb
 ```
 
+* Enable the repositorys on your machine:  
+
+```
 subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhel-7-server-rhceph-3-mon-rpms --enable=rhel-7-server-rhceph-3-tools-rpms --enable=rhel-7-server-rpms --enable=rhel-7-server-openstack-13-rpms --enable=rhel-7-server-openstack-13-optools-rpms --enable=rhel-7-server-openstack-13-tools-rpms --enable=rhel-7-server-extras-rpms
 ```
 
 * Install the necessary packages:
 ```
-
-
     $ yum install  python-devel git gcc -y 
     $ yum install python-pip -y # choose your repo of choice to get pip installed 
     $ pip install -U pip
@@ -35,8 +32,9 @@ subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhe
 ```
 git clone https://github.com/openstack/kolla.git --branch stable/queens
 ```
-### bug fix /root/kolla/kolla/image/build.py
+## Change the files
 
+### bug fix /root/kolla/kolla/image/build.py
 ``` diff
                 image.status = STATUS_MATCHED
 
@@ -48,10 +46,8 @@ git clone https://github.com/openstack/kolla.git --branch stable/queens
                     image.status = STATUS_UNMATCHED
 ```
 
-### Work with this repository:
-git clone 
-
-```We've included some changes in several docker files, each and everyone of the changes is written in the directory 'changes', here is an example in the neutron-server Dockerfile:```
+### Change the DockerFiles
+We've included some changes in several docker files, each and everyone of the changes is written in the directory 'changes', here is an example in the neutron-server Dockerfile:
 
 ### docker/neutron/neutron-server/Dockerfile.j2
 
