@@ -10,7 +10,26 @@ LABEL maintainer="{{ maintainer }}" name="{{ image_name }}" build-date="{{ build
 
 {{ macros.configure_user(name='ansible') }}
 
-{% if base_distro in ['centos', 'oraclelinux', 'rhel'] %}
+{% if base_distro in ['rhel'] %}
+RUN yum-config-manager --disable rhel-7-server-openstack-13-rpms 
+ {% set kolla_toolbox_packages = [
+        'crudini',
+        'gcc',
+        'gdisk',
+        'git',
+        'jq',
+        'libffi-devel',
+        'libxml2-devel',
+        'libxslt-devel',
+        'make',
+        'mariadb',
+        'mariadb-devel',
+        'openssh-clients',
+        'openssl-devel',
+        'python-devel'
+     ] %}
+
+{% elif base_distro in ['centos', 'oraclelinux'] %}
     {% set kolla_toolbox_packages = [
         'crudini',
         'gcc',
@@ -85,16 +104,37 @@ ENV PATH {{ virtualenv_path }}/bin:$PATH
         '"openstacksdk<0.18"',
         'pbr==2.0.0',
         'pymongo',
-        'python-openstackclient==3.12.0',
+        'python-openstackclient',
         'pytz',
         'pyudev',
-        'shade==1.16.0'
+        'shade'
     ] %}
 
 RUN {{ macros.install_pip(kolla_toolbox_pip_packages | customizable("pip_packages"), constraints=false) }} \
     && mkdir -p /etc/ansible /usr/share/ansible \
     && echo 'localhost ansible_connection=local ansible_python_interpreter={{ virtualenv_path }}/bin/python' > /etc/ansible/hosts \
     && sed -i 's|  "identity_api_version": "2.0",|  "identity_api_version": "3",|' {{ os_client_config }}
+
+{% if base_distro in ['rhel'] %}
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
+     && python get-pip.py \
+     && rm get-pip.py \
+     && pip install openstacksdk --ignore-installed ipaddress \ 
+     && pip install python-novaclient --ignore-installed ipaddress \
+     && pip install python-keystoneclient --ignore-installed ipaddress \
+     && pip install osc-lib --ignore-installed ipaddress \
+     && pip install oslo-config --ignore-installed ipaddress \
+     && pip install oslo-i18n --ignore-installed ipaddress \
+     && pip install python-glanceclient --ignore-installed ipaddress \
+     && pip install oslo-utils --ignore-installed ipaddress \
+     && pip install stevedore --ignore-installed ipaddress \
+     && pip install keystoneauth1 --ignore-installed ipaddress \
+     && pip install oslo-serialization --ignore-installed ipaddress \
+     && pip install debtcollector --ignore-installed ipaddress \
+     && pip install python-cinderclient --ignore-installed ipaddress \
+     && pip install cliff --ignore-installed ipaddress 
+
+{% endif %}
 
 ENV ANSIBLE_LIBRARY /usr/share/ansible:$ANSIBLE_LIBRARY
 

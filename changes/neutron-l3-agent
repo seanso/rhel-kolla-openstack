@@ -1,0 +1,2 @@
+Differences in our file compared to the original 'kolla-toolbox' Dockerfile:
+- Omitted the package 'openstack-neutron-vpn-agent' for rhel distribution, because it doesnt exist.

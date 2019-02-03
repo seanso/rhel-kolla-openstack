@@ -6,7 +6,11 @@ LABEL maintainer="{{ maintainer }}" name="{{ image_name }}" build-date="{{ build
 {% import "macros.j2" as macros with context %}
 
 {% if install_type == 'binary' %}
-   {% if base_distro in ['centos', 'oraclelinux', 'rhel'] %}
+   {% if base_distro in ['rhel'] %}
+       {% set neutron_l3_agent_packages = [
+            'libreswan'
+       ] %}
+   {% elif base_distro in ['centos', 'oraclelinux'] %}
        {% set neutron_l3_agent_packages = [
             'openstack-neutron-vpn-agent',
             'libreswan'

@@ -1,0 +1,9 @@
+Differences in our file compared to the original 'kolla-toolbox' Dockerfile:
+- Omitted the following packages for 'rhel' distribution because they dont exist:
+  * openstack-cloudkitty-ui
+  * openstack-designate-ui
+  * openstack-magnum-ui
+  * openstack-mistral-ui
+  * openstack-murano-ui
+  * openstack-trove-ui
+  * openstack-vitrage-ui

@@ -1,0 +1,42 @@
+All of the changes written below are packages we've used for rhel distribution instead of the original ones found in stable/queens Dockerfile. The last 4 packages are simply omitted because they dont 
+exist for rhel distribution.
+
+Changed:
+-python2-crypto instead of python-crypto
+-python-fasteners instead of python2-fasteners
+-'python2-aodhclient' instead of python-aodhclient
+-'python2-barbicanclient' instead of python-barbicanclient
+-python2-cmd2 instead of python-cmd2
+-python2-designateclient instead of python-designateclient
+-python2-dogpile-cache instead of python-dogpile-cache
+-python2-futures > python-futures
+-python2-glanceclient > python-glanceclient
+-python2-gnocchiclient > python-gnocchiclient
+-python2-heatclient > python-heatclient
+-python2-httplib2 > python-httplib2
+-python2-ironicclient > python-ironicclient
+-python2-jsonschema > python-jsonschema
+-'python2-keystoneauth1' > python-keystoneauth1 
+-'python2-keystoneclient' > python-keystoneclient
+-'python2-keystonemiddleware' > python-keystonemiddleware
+-'python2-magnumclient' > python-magnumclient
+-'python2-manilaclient' > python-malinaclient
+-'python2-memcached' > python-memcached
+-'python2-mistralclient' > python-mistraclient
+-python2-neutronclien > python-neutrnoclient
+-python2-openstackclient > python-openstackclient
+-python2-osprofiler > python-osprofiler
+-python2-pbr > python-pbr
+-python2-saharaclient > python-saharaclient
+-python2-swiftclient > python-swiftclient
+-python2-tooz > python-tooz
+-python2-traceback2 > python-traceback2
+-python2-troveclient - python-troveclient
+-python2-urllib3 > python-urllib3
+-python2-zaqarclient > pytho-zaqarclient
+
+Omitted:
+-python-muranoclient
+-python-vitrageclient
+-python-cloudkittyclient
+-python-congressclient
