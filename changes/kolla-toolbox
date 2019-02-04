@@ -5,20 +5,20 @@ Differences in our file compared to the original 'kolla-toolbox' Dockerfile:
 		RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
      			&& python get-pip.py \
      			&& rm get-pip.py \
-     			&& pip install openstacksdk==0.17.2 --ignore-installed ipaddress \
-     			&& pip install python-novaclient==11.1.0 --ignore-installed ipaddress \
-     			&& pip install python-keystoneclient==3.18.0 --ignore-installed ipaddress \
-     			&& pip install osc-lib==1.12.0 --ignore-installed ipaddress \
-     			&& pip install oslo-config==6.7.0 --ignore-installed ipaddress \
-     			&& pip install oslo-i18n==3.23.0 --ignore-installed ipaddress \
-     			&& pip install python-glanceclient==2.15.0 --ignore-installed ipaddress \
-     			&& pip install oslo-utils==3.40.0 --ignore-installed ipaddress \
-     			&& pip install stevedore==1.30.0 --ignore-installed ipaddress \
-     			&& pip install keystoneauth1==3.11.2 --ignore-installed ipaddress \
-     			&& pip install oslo-serialization==2.28.1 --ignore-installed ipaddress \
-     			&& pip install debtcollector==1.20.0 --ignore-installed ipaddress \
-     			&& pip install python-cinderclient==4.1.0 --ignore-installed ipaddress \
-     			&& pip install cliff==2.14.0 --ignore-installed ipaddress
-	{% endif %}' , to enable pip upgrade all of the packages installed above (ipaddress is already installed and managed by yum).
-
+     			&& pip install openstacksdk --ignore-installed ipaddress \
+     			&& pip install python-novaclient --ignore-installed ipaddress \
+     			&& pip install python-keystoneclient --ignore-installed ipaddress \
+     			&& pip install osc-lib --ignore-installed ipaddress \
+     			&& pip install oslo-config --ignore-installed ipaddress \
+     			&& pip install oslo-i18n --ignore-installed ipaddress \
+     			&& pip install python-glanceclient --ignore-installed ipaddress \
+     			&& pip install oslo-utils --ignore-installed ipaddress \
+     			&& pip install stevedore --ignore-installed ipaddress \
+     			&& pip install keystoneauth1 --ignore-installed ipaddress \
+     			&& pip install oslo-serialization --ignore-installed ipaddress \
+     			&& pip install debtcollector --ignore-installed ipaddress \
+     			&& pip install python-cinderclient --ignore-installed ipaddress \
+     			&& pip install cliff --ignore-installed ipaddress
+	{% endif %}' , to enable pip install all of the packages listed above which are dependencies for 'shade' (ipaddress is already installed and managed by yum).
+- Changed the version of 'python-openstackclient' for 'kolla_toolbox_pip_packages' (from 3.12.0 to latest) because of a use of deprecated function).
 
