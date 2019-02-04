@@ -8,7 +8,8 @@ LABEL maintainer="{{ maintainer }}" name="{{ image_name }}" build-date="{{ build
 {{ macros.configure_user(name='horizon') }}
 
 {% if install_type == 'binary' %}
-    {% if base_distro in ['rhel'] %}
+    {% if base_distro in ['rhel','centos', 'oraclelinux'] %}
+        {% if base_distro in ['rhel'] %}
         {% set horizon_packages = [
                 'gettext',
                 'httpd',
@@ -23,7 +24,7 @@ LABEL maintainer="{{ maintainer }}" name="{{ image_name }}" build-date="{{ build
                 'openstack-sahara-ui'
         ] %}
 
-    {% elif base_distro in ['centos', 'oraclelinux'] %}
+        {% else %}
         {% set horizon_packages = [
                 'gettext',
                 'httpd',
@@ -45,6 +46,8 @@ LABEL maintainer="{{ maintainer }}" name="{{ image_name }}" build-date="{{ build
                 'openstack-vitrage-ui'
         ] %}
 
+	{% endif %}
+
 {{ macros.install_packages(horizon_packages | customizable("packages")) }}
 
 {% block horizon_redhat_binary_setup %}
@@ -63,6 +66,7 @@ RUN sed -i -r 's,^(Listen 80),#\1,' /etc/httpd/conf/httpd.conf \
            (cd ${locale%/*} && /usr/bin/python /usr/bin/manage.py compilemessages) \
        done
 {% endblock %}
+
 
     {% elif base_distro in ['debian', 'ubuntu'] %}
         {% set horizon_packages = [
@@ -103,6 +107,7 @@ RUN echo > /etc/apache2/ports.conf \
 {% endblock %}
 
     {% endif %}
+
 {% elif install_type == 'source' %}
     {% if base_distro in ['centos', 'oraclelinux', 'rhel'] %}
 

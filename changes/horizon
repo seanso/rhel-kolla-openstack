@@ -1,4 +1,4 @@
-Differences in our file compared to the original 'kolla-toolbox' Dockerfile:
+Differences in our file compared to the original 'horizon' Dockerfile:
 - Omitted the following packages for 'rhel' distribution because they dont exist:
   * openstack-cloudkitty-ui
   * openstack-designate-ui
@@ -7,3 +7,5 @@ Differences in our file compared to the original 'kolla-toolbox' Dockerfile:
   * openstack-murano-ui
   * openstack-trove-ui
   * openstack-vitrage-ui
+
+** Because the if statement contains more then one block of code besides the package installation one, we changed the structure of the first 'if' statement and separated it to 'rhel' distribution and 'centos' disribution inside of it.
