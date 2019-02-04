@@ -13,7 +13,7 @@
      subscription-manager attach --pool=8a85f98a61b259620161debd54665adb
 ```
 
-* Enable the repositorys on your machine:  
+* Enable the following repositories on your machine:  
 
 ```
 subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhel-7-server-rhceph-3-mon-rpms --enable=rhel-7-server-rhceph-3-tools-rpms --enable=rhel-7-server-rpms --enable=rhel-7-server-openstack-13-rpms --enable=rhel-7-server-openstack-13-optools-rpms --enable=rhel-7-server-openstack-13-tools-rpms --enable=rhel-7-server-extras-rpms
@@ -26,7 +26,7 @@ subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhe
     $ pip install -U pip
     $ pip install tox
 ```
-**If you working with this repository(not making the changes yourself) clone this repo and skip to the Final section.**
+**If you're working with this repository(not making the changes yourself) clone this repo and skip to the Final section.**
      * Clone this repository:
 ```
      git clone https://github.com/seanso/rhel-kolla-openstack.git
@@ -37,7 +37,7 @@ subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhe
 * Clone kolla-openstack queens release repository:
 ```
 git clone https://github.com/openstack/kolla.git --branch stable/queens
-cd prod-kolla/
+cd kolla/
 ```
 
 ### Fix Bugs
@@ -54,12 +54,12 @@ cd prod-kolla/
 ```
 
 ### DockerFiles fix
-We've included some changes in several docker files, each and everyone of the changes is written in the directory 'changes'([Go to changes here](changes)), Most of the changes are yum packages that do not exist for rhel, so you need to create a sperated if condition for rhel and put there only the packages that are exists. 
-All the changes are documented in the changes directory and in the commit. Here is an example for neutron-server Dockerfile:
+We've included some changes in several docker files, each and everyone of the changes is written in the directory 'changes'([Go to changes here](changes)), Most of the changes are yum packages that do not exist for rhel, so you need to create a separated if condition for rhel and put there only the packages that exist. 
+Here is an example of the changes we've made for 'neutron-server' Dockerfile:
 
 * **docker/neutron/neutron-server/Dockerfile.j2**
 
-Seperate rhel from Oracleinux and Centos because some packages have diffrante names or does not exists.
+Seperate rhel from Oracleinux and Centos because some packages have different names or do not exist at all.
 
 ```diff --git a/docker/neutron/neutron-server/Dockerfile.j2 b/docker/neutron/neutron-server/Dockerfile.j2
 index 9694778..302b431 100644
@@ -81,8 +81,8 @@ a/docker/neutron/neutron-server/Dockerfile.j2
              'openstack-neutron-lbaas',
 ```
 
-The DockerFiles we chnaged:
-- horizen
+The DockerFiles we've changed:
+- horizon
 - kolla-toolbok
 - neutron-base
 - neutron-l3-agent
