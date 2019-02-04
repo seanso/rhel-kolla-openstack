@@ -26,30 +26,19 @@ subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhe
     $ pip install -U pip
     $ pip install tox
 ```
-**If you working with this repository(not making the chnges yourself) skip to the Work with this repository section.**
+**If you working with this repository(not making the changes yourself) clone this repo and skip to the Final section.**
+     * Clone this repository:
+```
+     git clone https://github.com/seanso/rhel-kolla-openstack.git
+```
+----
 
+## Fixing Openstack Kolla repository to work with RHEL images
 * Clone kolla-openstack queens release repository:
 ```
 git clone https://github.com/openstack/kolla.git --branch stable/queens
-```
-* Genrate config file
-```
 cd prod-kolla/
-tox -e genconfig
 ```
-
-* Install pip requirements
-```
-pip install -r requirements.txt
-```
-
-* Install and start Docker
-```
-yum install docker 
-systemctl start docker
-```
-
-## Change the files
 
 ### Fix Bugs
 * **Bug fix /root/kolla/kolla/image/build.py**
@@ -70,7 +59,7 @@ All the changes are documented in the changes directory and in the commit. Here 
 
 * **docker/neutron/neutron-server/Dockerfile.j2**
 
-Again had to seperate rhel from oraclelinux and centos because some packages have diffrante names or does not exists
+Seperate rhel from Oracleinux and Centos because some packages have diffrante names or does not exists.
 
 ```diff --git a/docker/neutron/neutron-server/Dockerfile.j2 b/docker/neutron/neutron-server/Dockerfile.j2
 index 9694778..302b431 100644
@@ -100,12 +89,8 @@ The DockerFiles we chnaged:
 - neutron-server
 - openstack-base
 
-## Work with this repository
-If you decide to work with this repository and not make the changes yourself. Do this steps:
-* Clone this repository:
-```
-git clone https://github.com/seanso/rhel-kolla-openstack.git
-```
+## Final
+
 * Genrate config file
 ```
 cd prod-kolla/
