@@ -19,6 +19,7 @@ Differences in our file compared to the original 'kolla-toolbox' Dockerfile:
      			&& pip install debtcollector --ignore-installed ipaddress \
      			&& pip install python-cinderclient --ignore-installed ipaddress \
      			&& pip install cliff --ignore-installed ipaddress
-	{% endif %}' , to enable pip install all of the packages listed above which are dependencies for 'shade' (ipaddress is already installed and managed by yum).
-- Changed the version of 'python-openstackclient' for 'kolla_toolbox_pip_packages' (from 3.12.0 to latest) because of a use of deprecated function).
+	{% endif %}' , to enable pip install all of the packages listed above which are dependencies for 'shade' (ipaddress is already installed and managed by yum so we have to ignore it in order for pip
+                       to be able to install it).
+- Changed the version of 'python-openstackclient' for 'kolla_toolbox_pip_packages' (from 3.12.0 to latest) because of a use of deprecated function.
 
