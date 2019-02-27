@@ -21,7 +21,7 @@ subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhe
 
 * Install the necessary packages:
 ```
-    $ yum install  python27-python-devel git gcc -y 
+    $ yum install python27-python-devel.x86_64 git gcc -y 
     $ yum install python27-python-pip -y
     $ scl enable python27 bash
     $ pip install --upgrade pip
@@ -38,7 +38,7 @@ subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhe
 * Clone kolla-openstack queens release repository:
 ```
 git clone https://github.com/openstack/kolla.git --branch stable/queens
-cd openstack-kolla-for-rhel/
+cd kolla/
 ```
 
 ### Fix Bugs
@@ -94,7 +94,7 @@ The DockerFiles we've changed:
 
 * Genrate config file
 ```
-cd prod-kolla/
+cd rhel-kolla-openstack/
 tox -e genconfig
 ```
 
