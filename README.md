@@ -16,14 +16,15 @@
 * Enable the following repositories on your machine:  
 
 ```
-subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhel-7-server-rhceph-3-mon-rpms --enable=rhel-7-server-rhceph-3-tools-rpms --enable=rhel-7-server-rpms --enable=rhel-7-server-openstack-13-rpms --enable=rhel-7-server-openstack-13-optools-rpms --enable=rhel-7-server-openstack-13-tools-rpms --enable=rhel-7-server-extras-rpms
+subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhel-7-server-rhceph-3-mon-rpms --enable=rhel-7-server-rhceph-3-tools-rpms --enable=rhel-7-server-rpms --enable=rhel-7-server-openstack-13-rpms --enable=rhel-7-server-openstack-13-optools-rpms --enable=rhel-7-server-openstack-13-tools-rpms --enable=rhel-7-server-extras-rpms --enable=rhel-server-rhscl-7-rpms
 ```
 
 * Install the necessary packages:
 ```
-    $ yum install  python-devel git gcc -y 
-    $ yum install python-pip -y # choose your repo of choice to get pip installed 
-    $ pip install -U pip
+    $ yum install  python27-python-devel git gcc -y 
+    $ yum install python27-python-pip -y
+    $ scl enable python27 bash
+    $ pip install --upgrade pip
     $ pip install tox
 ```
 **If you're working with this repository(not making the changes yourself) clone this repo and skip to the Final section.**
@@ -37,7 +38,7 @@ subscription-manager repos --enable=rhel-7-server-rhceph-3-osd-rpms --enable=rhe
 * Clone kolla-openstack queens release repository:
 ```
 git clone https://github.com/openstack/kolla.git --branch stable/queens
-cd kolla/
+cd openstack-kolla-for-rhel/
 ```
 
 ### Fix Bugs
